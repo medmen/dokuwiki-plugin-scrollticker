@@ -1,0 +1,7 @@
+base   scrollticker
+author medmen
+email  med-men@gmx.net
+date   2016-12-29
+name   scrollticker plugin
+desc   format unsorted list as scrolling news ticker
+url    https://github.com/medmen/dokuwiki-plugin-scrollticker
