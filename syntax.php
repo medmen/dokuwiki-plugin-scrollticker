@@ -4,6 +4,7 @@
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  medmen <med-men@gmx.net>
+ * @author Michael Bohn <mjbohn@gmail.com>
  */
 
 // must be run within Dokuwiki
