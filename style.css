@@ -1,10 +1,10 @@
 /* liScroll styles */
 
 .tickercontainer { /* the outer div with the black border */
-    border: 0.1px dashed #000;
-    border-radius: 20px;
-    width: 95%;
-    height: 2em;
+    /*border: 0.1px dashed #000;*/
+    /*border-radius: 20px;*/
+    /*width: 50%;*/
+    /*height: 2em;*/
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -24,7 +24,7 @@ ul.newsticker { /* that's your list */
     list-style-type: none;
     margin: 0;
     padding: 0;
-	counter-reset: scrollticker-counter;
+    counter-reset: scrollticker-counter;
 }
 
 ul.newsticker li {
@@ -34,15 +34,41 @@ ul.newsticker li {
     background: #fff;
 }
 
-ul.newsticker li::before {
-	content: counter(scrollticker-counter, lower-roman);
-	counter-increment: scrollticker-counter;
+/*ul.newsticker li::before {*/
+/*content: counter(scrollticker-counter, lower-roman);*/
+/*counter-increment: scrollticker-counter;*/
+/*}*/
+
+.counter_upper-roman::before {
+    content: counter(scrollticker-counter, upper-roman);
+    counter-increment: scrollticker-counter;
 }
 
-ul.newsticker li::after {
-    content: "\00a0\00a0\00a0 + + + \00a0\00a0\00a0"; /* insert text + + + after each item, add whitspace */
+.counter_lower-roman::before {
+    content: counter(scrollticker-counter, lower-roman);
+    counter-increment: scrollticker-counter;
+}
+
+.counter_upper-latin::before {
+    content: counter(scrollticker-counter, upper-latin);
+    counter-increment: scrollticker-counter;
+}
+
+.counter_lower-latin::before {
+    content: counter(scrollticker-counter, lower-latin);
+    counter-increment: scrollticker-counter;
+}
+
+.counter_decimal::before {
+    content: counter(scrollticker-counter, decimal);
+    counter-increment: scrollticker-counter;
+}
+
+.counter_decimal-leading-zero::before {
+    content: counter(scrollticker-counter, decimal-leading-zero);
+    counter-increment: scrollticker-counter;
 }
 
 ul.newsticker div {
-	display: inline;
+    display: inline;
 }
