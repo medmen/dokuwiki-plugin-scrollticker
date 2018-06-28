@@ -15,7 +15,6 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
      * @return string Syntax mode type
      */
     public function getType() {
-        // return 'container';
         return 'protected';
     }
 
@@ -43,7 +42,6 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
      */
     public function connectTo($mode) {
         $this->Lexer->addEntryPattern('<scrollticker>(?=.*?</scrollticker>)',$mode,'plugin_scrollticker');
-        //$this->Lexer->addEntryPattern('<scrollticker>',$mode,'plugin_scrollticker');
     }
 
     public function postConnect() {
@@ -61,14 +59,6 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
      * @return array Data for the renderer
      */
     public function handle($match, $state, $pos, Doku_Handler $handler){
- /**
-        return array($match, $state, $pos, $handler);
-        switch ($state) {
-            case DOKU_LEXER_ENTER :      return array($state, $match);
-            case DOKU_LEXER_UNMATCHED :  return array($state, $match);
-            case DOKU_LEXER_EXIT :       return array($state, $match);
-        }
-  */
         return array($state, $match);
     }
 
@@ -89,7 +79,6 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
                 break;
             case DOKU_LEXER_UNMATCHED :
                 $renderer->doc .= $renderer->_xmlEntities($match);
-                // $renderer->doc .= $match;
                 break;
             case DOKU_LEXER_EXIT :
                 $renderer->doc .= '</div>';
@@ -99,7 +88,7 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
                 $renderer->doc.= 'STATE: '.$renderer->_xmlEntities($state);
         }
 
-        // $renderer->doc .= var_export($data, true);
+        // $renderer->doc .= var_export($data, true); // might be helpful when debugging
         return true;
     }
 }

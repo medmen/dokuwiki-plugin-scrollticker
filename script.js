@@ -28,12 +28,12 @@ jQuery.fn.liScroll = function(settings) {
         separator = separator.replace(/\s/g, '\xa0');
 
         $strip.find("li").each(function(i){
-            var liTxt = jQuery( this ).text();
+            var liTxt = jQuery( this ).html();
             if(i < $strip.find("li").length -1) {
-                jQuery(this).text(liTxt + separator);
+                jQuery(this).html(liTxt + separator);
             }
             else{
-                jQuery(this).text(liTxt );
+                jQuery(this).html(liTxt );
             }
             stripWidth += jQuery(this, i).outerWidth(true); // thanks to Michael Haszprunar and Fabien Volpi
 
@@ -54,7 +54,10 @@ jQuery.fn.liScroll = function(settings) {
         var totalTravel = stripWidth+containerWidth;
         var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye
         function scrollnews(spazio, tempo){
-            $strip.animate({left: '-='+ spazio}, tempo, "linear", function(){$strip.css("left", containerWidth); scrollnews(totalTravel, defTiming);});
+            $strip.animate({left: '-='+ spazio}, tempo, "linear", function(){
+                $strip.css("left", containerWidth);
+                scrollnews(totalTravel, defTiming);
+            });
         }
         scrollnews(totalTravel, defTiming);
         $strip.hover(function(){
