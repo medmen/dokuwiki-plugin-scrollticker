@@ -19,3 +19,4 @@ $conf['border-radius'] = '20px';
 $conf['width']         = '90%';
 $conf['height']        = '2.5em';
 $conf['textcolor']     = 'red';
+$conf['bgcolor']       = 'transparent';
