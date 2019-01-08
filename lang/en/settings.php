@@ -16,3 +16,4 @@ $lang['border-radius'] = 'Add rounded corners ( 0 for none )';
 $lang['width']         = 'Ticker width (%)';
 $lang['height']        = 'Ticker height (default 2em)';
 $lang['textcolor']     = 'Color of ticker text';
+$lang['bgcolor']       = 'Color of background';

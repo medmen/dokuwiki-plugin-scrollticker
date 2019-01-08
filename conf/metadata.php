@@ -18,3 +18,4 @@ $meta['border-radius'] = array('string');
 $meta['width']         = array('string');
 $meta['height']        = array('string');
 $meta['textcolor']     = array('string');
+$meta['bgcolor']       = array('string');

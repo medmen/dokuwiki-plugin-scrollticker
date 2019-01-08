@@ -1,6 +1,6 @@
 <?php
 /**
- * english language file for scrollticker plugin
+ * german language file for scrollticker plugin
  *
  * @author Michael Bohn <mjbohn@gmail.com>
  *
@@ -16,3 +16,4 @@ $lang['border-radius'] = 'abgerundete Ecken am Rand? ( Radius oder 0 für keine 
 $lang['width']         = 'Ticker Breite (%)';
 $lang['height']        = 'Ticker Höhe (Standard: 2em)';
 $lang['textcolor']     = 'Farbe des Ticker-Inhalts';
+$lang['bgcolor']     = 'Farbe des Hintergrunds';
