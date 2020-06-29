@@ -9,6 +9,7 @@
  *
  */
 
+$conf['maxitems']      = 0;
 $conf['counterstyle']  = 'none';
 $conf['separator']     = ' +++ ';
 $conf['speed']         = 6;

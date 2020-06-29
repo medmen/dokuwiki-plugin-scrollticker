@@ -7,7 +7,7 @@
  * @author Michael Bohn <mjbohn@gmail.com>
  *
  */
-
+$meta['maxitems']         = array('numeric');
 $meta['counterstyle']  = array('multichoice', _choices => array('decimal', 'decimal-leading-zero', 'lower-roman', 'upper-roman','lower-latin', 'upper-latin', 'none'));
 $meta['separator']     = array('string');
 $meta['speed']         = array('numeric');

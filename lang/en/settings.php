@@ -6,6 +6,7 @@
  *
  */
 
+$lang['maxitems']      = 'Limit of n items to show (0 = off, show all)';
 $lang['counterstyle']  = 'Add counter in front of ticker items (default none)';
 $lang['separator']     = 'Separator between items';
 $lang['speed']         = 'Tickerspeed';

@@ -29,8 +29,13 @@ jQuery.fn.liScroll = function(settings) {
         separator = separator.replace(/\s/g, '\xa0'); //make spaces safe
 
         $strip.find("li").each(function(i){ //iterate through every <li>
+            let maxlength = $strip.find("li").length -1;
+            if(settings.maxitems > 0 && settings.maxitems < maxlength) {
+                maxlength = settings.maxitems;
+            }
+
             var liTxt = jQuery( this ).html();
-            if(i < $strip.find("li").length -1) {
+            if(i < $strip.find("li").maxlength) {
                 jQuery(this).html(liTxt + separator); // add separator between items
             }
             else{
@@ -80,10 +85,22 @@ jQuery.fn.liScroll = function(settings) {
 
 
 jQuery(function(){
-    jQuery("div.ui-newsticker ul").liScroll({
-
+    // override plugin settings with matching attributes
+    jQuery.each(JSINFO['plugin_scrollticker'], function (key, value) {
+         if(jQuery("div.ui-newsticker").attr(key) != undefined) {
+             JSINFO['plugin_scrollticker'][key] = jQuery("div.ui-newsticker").attr(key);
+         }
     });
+
+    let setting = {maxitems: JSINFO['plugin_scrollticker']['maxitems']};
+    jQuery("div.ui-newsticker ul").liScroll({setting});
+
+    // css parameters apply to container
     var $ticker = jQuery(".tickercontainer");
+
+    let border-radius = JSINFO['plugin_scrollticker']['border-radius'])
+    let new_border-radius = jQuery("div.ui-newsticker").attr('maxitems');
+
 
     $ticker.css("border-radius",JSINFO['plugin_scrollticker']['border-radius']);
 
