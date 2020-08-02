@@ -18,24 +18,69 @@
 
 jQuery.fn.liScroll = function(settings) {
     settings = jQuery.extend({
-        travelocity: JSINFO['plugin_scrollticker']['speed'] / 100
+        travelocity: settings.speed / 100
     }, settings);
 
+    // get the next parent with class tickercontainer, see if it holds parameters to override global settings
+    let ticker = jQuery(this).parents('.tickercontainer');
+
+    jQuery.each(ticker.attributes, function(){
+        if(this.specified) {
+            console.log(this.name, this.value);
+        }
+    });
+
+    jQuery.each(settings, function(name, value){
+        console.log('evaluating key ' + name + ' with value ' + value);
+        if(name == 'borderradius'){
+            ticker.css("border-radius", value);
+        } else if(name == 'bgcolor'){
+            ticker.css("background-color", value);
+        } else if(name == 'textcolor'){
+            ticker.css("color", value);
+        } else {
+            ticker.css(name, value);
+        }
+    });
+
+    /**
+    attr('data-collapse_after');
+    if (new_setting != undefined) {
+        settings = {collapse_after: new_setting};
+    }
+
+    // css parameters apply to container
+    let ticker = jQuery(".tickercontainer");
+    ticker.css("border-radius",JSINFO['plugin_scrollticker']['border-radius']);
+
+    if(JSINFO['plugin_scrollticker']['showBorder']){
+        ticker.css("border",JSINFO['plugin_scrollticker']['border']);
+    }
+
+    ticker.css("width",JSINFO['plugin_scrollticker']['width']);
+    ticker.css("height",JSINFO['plugin_scrollticker']['height']);
+    ticker.css("color",JSINFO['plugin_scrollticker']['textcolor']);
+    jQuery(".tickercontainer ul li").css("color",JSINFO['plugin_scrollticker']['textcolor']);
+    ticker.css("background-color",JSINFO['plugin_scrollticker']['bgcolor']);
+     **/
+
+
     return this.each(function(){
-        var $strip = jQuery(this);
-        $strip.addClass("newsticker"); // each ul inside <scrollticker> gets class added
-        var stripWidth = 1;
-        var separator = JSINFO['plugin_scrollticker']['separator'];
+        let strip = jQuery(this);
+        strip.addClass("newsticker"); // each ul inside <scrollticker> gets class added
+        let stripWidth = 1;
+        let separator = JSINFO['plugin_scrollticker']['separator'];
         separator = separator.replace(/\s/g, '\xa0'); //make spaces safe
 
-        $strip.find("li").each(function(i){ //iterate through every <li>
-            let maxlength = $strip.find("li").length -1;
+        let maxlength = strip.find("li").length - 1;
+
+        strip.find("li").each(function(i){ //iterate through every <li>
             if(settings.maxitems > 0 && settings.maxitems < maxlength) {
                 maxlength = settings.maxitems;
             }
 
-            var liTxt = jQuery( this ).html();
-            if(i < $strip.find("li").maxlength) {
+            let liTxt = jQuery( this ).html();
+            if(i < strip.find("li").maxlength) {
                 jQuery(this).html(liTxt + separator); // add separator between items
             }
             else{
@@ -49,35 +94,33 @@ jQuery.fn.liScroll = function(settings) {
             stripWidth += jQuery(this, i).outerWidth(true); // thanks to Michael Haszprunar and Fabien Volpi
         });
 
-        var $mask = $strip.wrap("<div class='mask'></div>");
-        var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");
-        var containerWidth = $strip.parent().parent().width();	//a.k.a. 'mask' width
+        let mask = strip.wrap("<div class='mask'></div>");
+        let tickercontainer = strip.parent().wrap("<div class='tickercontainer'></div>");
+        let containerWidth = strip.parent().parent().width();	//a.k.a. 'mask' width
 
         // enlarge strip to fit counter
         if(JSINFO['plugin_scrollticker']['counterstyle'] != 'none')
         {
-            stripWidth += 21 * $strip.find('li').length; // why the hell 21 ??
+            stripWidth += 21 * strip.find('li').length; // why the hell 21 ??
         }
+        strip.width(stripWidth);
 
-
-        $strip.width(stripWidth);
-
-        var totalTravel = stripWidth+containerWidth;
-        var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye
+        let totalTravel = stripWidth+containerWidth;
+        let defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye
         function scrollnews(spazio, tempo){
-            $strip.animate({left: '-='+ spazio}, tempo, "linear", function(){
-                $strip.css("left", containerWidth);
+            strip.animate({left: '-='+ spazio}, tempo, "linear", function(){
+                strip.css("left", containerWidth);
                 scrollnews(totalTravel, defTiming);
             });
         }
         scrollnews(totalTravel, defTiming);
-        $strip.hover(function(){
+        strip.hover(function(){
                 if(JSINFO['plugin_scrollticker']['stopOnHover']){jQuery(this).stop();}
             },
             function(){
-                var offset = jQuery(this).offset();
-                var residualSpace = offset.left + stripWidth;
-                var residualTime = residualSpace/settings.travelocity;
+                let offset = jQuery(this).offset();
+                let residualSpace = offset.left + stripWidth;
+                let residualTime = residualSpace/settings.travelocity;
                 scrollnews(residualSpace, residualTime);
             });
     });
@@ -86,32 +129,13 @@ jQuery.fn.liScroll = function(settings) {
 
 jQuery(function(){
     // override plugin settings with matching attributes
-    jQuery.each(JSINFO['plugin_scrollticker'], function (key, value) {
-         if(jQuery("div.ui-newsticker").attr(key) != undefined) {
-             JSINFO['plugin_scrollticker'][key] = jQuery("div.ui-newsticker").attr(key);
-         }
+    let settings = {};
+    jQuery.each(JSINFO['plugin_scrollticker'], function(key, value) {
+        settings.key = value;
     });
 
-    let setting = {maxitems: JSINFO['plugin_scrollticker']['maxitems']};
-    jQuery("div.ui-newsticker ul").liScroll({setting});
-
-    // css parameters apply to container
-    var $ticker = jQuery(".tickercontainer");
-
-    let border-radius = JSINFO['plugin_scrollticker']['border-radius'])
-    let new_border-radius = jQuery("div.ui-newsticker").attr('maxitems');
-
-
-    $ticker.css("border-radius",JSINFO['plugin_scrollticker']['border-radius']);
-
-    if(JSINFO['plugin_scrollticker']['showBorder']){
-        $ticker.css("border",JSINFO['plugin_scrollticker']['border']);
-    }
-
-    $ticker.css("width",JSINFO['plugin_scrollticker']['width']);
-    $ticker.css("height",JSINFO['plugin_scrollticker']['height']);
-    $ticker.css("color",JSINFO['plugin_scrollticker']['textcolor']);
-    jQuery(".tickercontainer ul li").css("color",JSINFO['plugin_scrollticker']['textcolor']);
-    $ticker.css("background-color",JSINFO['plugin_scrollticker']['bgcolor']);
+    jQuery("div.ui-newsticker ul").each(function(){
+        jQuery(this).liScroll({settings});
+    });
     jQuery(".tickercontainer ul li").css("background-color","transparent");
 });

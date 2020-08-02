@@ -59,8 +59,6 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
      * @return array Data for the renderer
      */
     public function handle($match, $state, $pos, Doku_Handler $handler){
-        private $parameters, $params_arr;
-
         $parameters = trim(substr($match, 13,-1)); // get string between "<scrollticker" and ">"
         if(strlen(trim($parameters))< 3) {
             return array($state, $match, false); // no parameters given, dont bother with extra work
