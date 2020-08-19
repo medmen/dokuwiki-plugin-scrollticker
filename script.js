@@ -21,17 +21,19 @@ jQuery.fn.liScroll = function(settings) {
         travelocity: settings.speed / 100
     }, settings);
 
-    // get the next parent with class tickercontainer, see if it holds parameters to override global settings
-    let ticker = jQuery(this).parents('.tickercontainer');
+    console.log('settings:', settings);
 
-    jQuery.each(ticker.attributes, function(){
-        if(this.specified) {
-            console.log(this.name, this.value);
-        }
+    // get the next parent with class tickercontainer, see if it holds parameters to override global settings
+    let ticker = jQuery(this).parents('.ui-newsticker');
+    console.log('ticker data is ', ticker.data());
+
+
+    jQuery.each(ticker.data(), function(dname, dval){
+            console.log(dname, dval);
     });
 
     jQuery.each(settings, function(name, value){
-        console.log('evaluating key ' + name + ' with value ' + value);
+        console.log('evaluating key ' + name + ' with value ', value);
         if(name == 'borderradius'){
             ticker.css("border-radius", value);
         } else if(name == 'bgcolor'){
@@ -64,7 +66,7 @@ jQuery.fn.liScroll = function(settings) {
     ticker.css("background-color",JSINFO['plugin_scrollticker']['bgcolor']);
      **/
 
-
+/**
     return this.each(function(){
         let strip = jQuery(this);
         strip.addClass("newsticker"); // each ul inside <scrollticker> gets class added
@@ -124,17 +126,24 @@ jQuery.fn.liScroll = function(settings) {
                 scrollnews(residualSpace, residualTime);
             });
     });
-};
+**/
+ };
 
 
 jQuery(function(){
+
+    console.log('JSINFO is:', JSINFO['plugin_scrollticker']);
     // override plugin settings with matching attributes
     let settings = {};
-    jQuery.each(JSINFO['plugin_scrollticker'], function(key, value) {
-        settings.key = value;
+    jQuery.each(JSINFO['plugin_scrollticker'], function(skey, svalue) {
+        console.log('parsing jsinfo with key: ' + skey + ' and value: ' + svalue);
+        settings[skey] = svalue;
     });
 
+    console.log('settings now: ', settings);
+
     jQuery("div.ui-newsticker ul").each(function(){
+        console.log("starting scroll");
         jQuery(this).liScroll({settings});
     });
     jQuery(".tickercontainer ul li").css("background-color","transparent");

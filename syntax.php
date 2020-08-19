@@ -100,15 +100,15 @@ class syntax_plugin_scrollticker extends DokuWiki_Syntax_Plugin {
                     $parameters = http_build_query($parameters,'', ' ');
                 }
 
-                $renderer->doc .= '<div class="ui-newsticker" '.$parameters.'>';
+                $renderer->doc.= '<div class="ui-newsticker" '.$parameters.'>';
                 break;
 
             case DOKU_LEXER_UNMATCHED :
-                $renderer->doc .= $renderer->_xmlEntities($match);
+                $renderer->doc.= $renderer->_xmlEntities($match);
                 break;
 
             case DOKU_LEXER_EXIT :
-                $renderer->doc .= '</div>';
+                $renderer->doc.= '</div>';
                 break;
 
             default:
